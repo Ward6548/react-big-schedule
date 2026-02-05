@@ -5,6 +5,7 @@ import DemoData from '../sample-data/sample1';
 import AddMorePopover from './AddMorePopover';
 import AgendaView from './AgendaView';
 import BodyView from './BodyView';
+import DependencyOverlay from './DependencyOverlay';
 import DnDContext from './DnDContext';
 import DnDSource from './DnDSource';
 import HeaderView from './HeaderView';
@@ -50,6 +51,7 @@ function Scheduler(props) {
     rightCustomHeader,
     CustomResourceHeader,
     configTableHeaderStyle,
+    dependencies,
   } = props;
 
   // Initialize DnD context
@@ -562,6 +564,10 @@ function Scheduler(props) {
             >
               <div style={{ width: schedulerWidth }}>
                 <div className="scheduler-content">
+                  <DependencyOverlay
+                    key={`${schedulerData.viewType}-${schedulerData.startDate}-${schedulerData.endDate}`}
+                    dependencies={dependencies}
+                  />
                   <table className="scheduler-content-table">
                     <tbody>{resourceEventsList}</tbody>
                   </table>
@@ -647,6 +653,7 @@ Scheduler.propTypes = {
   CustomResourceHeader: PropTypes.func,
   CustomResourceCell: PropTypes.func,
   configTableHeaderStyle: PropTypes.object,
+  dependencies: PropTypes.array,
 };
 
 export {

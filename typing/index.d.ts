@@ -122,6 +122,12 @@ export interface SchedulerProps<EventType extends EventItem = EventItem> {
   CustomResourceHeader?: React.ComponentType<any>;
   CustomResourceCell?: React.ComponentType<CustomResourceCellProps<EventType>>;
   configTableHeaderStyle?: CSSProperties;
+  /**
+   * Optional list of dependencies between events. Each dependency draws an arrow from
+   * the `fromId` event to the `toId` event when both are visible in the current view.
+   * Dependencies can connect events across different resources/lanes.
+   */
+  dependencies?: Dependency<EventType>[];
 }
 
 export interface CustomResourceCellProps<EventType extends EventItem = EventItem> {
@@ -286,6 +292,12 @@ export interface ResourceEvent<EventType extends EventItem = EventItem> {
   rowMaxCount: number;
   slotName: string;
   slotId: string;
+}
+
+export interface Dependency<EventType extends EventItem = EventItem> {
+  fromId: EventType['id'];
+  toId: EventType['id'];
+  color?: string;
 }
 
 export interface Resource {

@@ -534,6 +534,7 @@ class EventItem extends Component {
     const a = (
       <a
         className="timeline-event"
+        data-event-id={eventItem.id}
         ref={this.eventItemRef}
         onMouseMove={isPopoverPlacementMousePosition ? this.handleMouseMove : undefined}
         style={{ left, width, top }}
