@@ -17,7 +17,49 @@ Enhance productivity and streamline your workflow with this React-based solution
 
 Unlock the potential of your React projects with react-big-schedule and revolutionize the way you handle scheduling and resource planning.
 
-### This project code is forked from:
+### This fork
+
+This repository is a **fork** of `react-big-schedule` focused on one major addition:
+
+- **Visual event dependencies** – draw arrows between events, including across different resources/lanes and in task (event perspective) view.
+
+The core scheduling API is unchanged; you can adopt this fork as a drop-in replacement and opt into dependencies via a new `dependencies` prop on `Scheduler`. In addition, the default event labels now include **time information** (e.g. `09:30-11:00 Standup`) to make timelines easier to read at a glance.
+
+#### Using dependencies
+
+Pass an array of dependency objects to `Scheduler`:
+
+```js
+const dependencies = [
+  { fromId: 9, toId: 2, color: '#4a90e2' }, // optional color
+  { fromId: 2, toId: 3 },
+];
+
+<Scheduler
+  schedulerData={schedulerData}
+  // ...other props
+  dependencies={dependencies}
+/>;
+```
+
+- **`fromId`**: the `id` of the source event.
+- **`toId`**: the `id` of the target event.
+- **`color`** (optional): stroke/fill color for the arrow.
+
+How it works:
+
+- Arrows are rendered in a lightweight overlay that measures the actual DOM position of visible events.
+- Each dependency draws an arrow from the **finish (right edge)** of the `from` event to the **start (left edge)** of the `to` event.
+- Dependencies work:
+  - Across different resources/lanes.
+  - In both resource and task (event perspective) views.
+  - While scrolling and when changing view (Day/Week/Month, etc.).
+
+See the **Dependencies** example in the demo app (`/dependencies` route) for concrete configurations in both class-based and task-based views.
+
+### Upstream project
+
+This project code is originally based on:
 
 - [react-big-scheduler](https://stephenchou1017.github.io/scheduler/#/).
 - [react-big-scheduler-stch](https://github.com/hbatalhaStch/react-big-scheduler).

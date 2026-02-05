@@ -9,7 +9,7 @@ class DependenciesExample extends Component {
     super(props);
 
     const schedulerData = new SchedulerData('2022-12-19', ViewType.Week, false, false, {
-      besidesWidth: 260,
+      besidesWidth: 300,
       dayMaxEvents: 30,
       weekMaxEvents: 30,
       monthMaxEvents: 30,

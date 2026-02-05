@@ -131,7 +131,13 @@ function DependencyOverlay({ dependencies }) {
       const arrowMargin = 4; // keep arrow head just outside the event box
       const arrowBaseX = endX - arrowSize - arrowMargin;
 
-      const pathD = `M ${startX} ${startY} L ${startX} ${laneY} L ${arrowBaseX} ${laneY} L ${arrowBaseX} ${endY}`;
+      // Start flat for a short distance before dropping to the lane
+      const exitDx = 12;
+      const exitX = startX + exitDx;
+
+      const pathD =
+        `M ${startX} ${startY} L ${exitX} ${startY} L ${exitX} ${laneY} ` +
+        `L ${arrowBaseX} ${laneY} L ${arrowBaseX} ${endY}`;
 
       const strokeColor = dep.color || '#595959';
 

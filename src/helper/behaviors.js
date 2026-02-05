@@ -56,10 +56,30 @@ export const getDateLabel = (schedulerData, viewType, startDate, endDate) => {
   return dateLabel;
 };
 
-export const getEventText = (schedulerData, event) =>
-  schedulerData.isEventPerspective
-    ? schedulerData.resources.find(item => item.id === event.resourceId)?.name || event.title
-    : event.title;
+export const getEventText = (schedulerData, event) => {
+  const { localeDayjs, isEventPerspective, cellUnit, viewType, resources } = schedulerData;
+
+  // Base label: resource name in event perspective, otherwise event title
+  const base =
+    isEventPerspective && resources
+      ? resources.find(item => item.id === event.resourceId)?.name || event.title
+      : event.title;
+
+  const start = localeDayjs(new Date(event.start));
+  const end = localeDayjs(new Date(event.end));
+
+  // Common, compact time label:
+  // - Hour / Day granularity: show start–end time (HH:mm–HH:mm)
+  // - Longer views: just show the start date (e.g. Jan 3)
+  let timeLabel;
+  if (cellUnit === CellUnit.Hour || viewType === ViewType.Day) {
+    timeLabel = `${start.format('HH:mm')}-${end.format('HH:mm')}`;
+  } else {
+    timeLabel = start.format('MMM D');
+  }
+
+  return `${timeLabel} ${base}`;
+};
 
 export const getScrollSpecialDayjs = schedulerData => {
   const { localeDayjs } = schedulerData;

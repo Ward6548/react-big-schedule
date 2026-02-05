@@ -262,6 +262,14 @@ export interface EventItem {
   end: string;
   resourceId: string;
   title: string;
+  /**
+   * Optional actual execution window of the event.
+   * `start`/`end` remain the scheduled plan and determine
+   * the visual bar position, while `actualStart`/`actualEnd`
+   * can be used for progress/metrics.
+   */
+  actualStart?: string;
+  actualEnd?: string;
   bgColor?: string;
   rrule?: string;
   showPopover?: boolean;

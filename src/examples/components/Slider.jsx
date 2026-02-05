@@ -10,6 +10,7 @@ const items = [
   { label: 'Custom Time', key: 'custom-time', path: '/custom-time' },
   { label: 'Resize By Parent', key: 'resize-by-parent', path: '/resize-by-parent' },
   { label: 'Dependencies', key: 'dependencies', path: '/dependencies' },
+  { label: 'Time Dependencies', key: 'dependencies-time', path: '/dependencies-time' },
 ];
 
 function Slider() {

@@ -8,6 +8,7 @@ const dragAndDropPath = 'blob/master/src/examples/pages/Drag-And-Drop/index.jsx'
 const customTimePath = 'blob/master/src/examples/pages/Custom-Time/index.jsx';
 const resizeParentPath = 'blob/master/src/examples/pages/Resize-By-Parent/index.jsx';
 const dependenciesPath = 'blob/master/src/examples/pages/Dependencies/index.jsx';
+const dependenciesTimePath = 'blob/master/src/examples/pages/Dependencies-Time/index.jsx';
 export const URLS = {
   githubRepo,
   examples: {
@@ -18,5 +19,6 @@ export const URLS = {
     customTime: `${githubRepo}/${customTimePath}`,
     resizeByParent: `${githubRepo}/${resizeParentPath}`,
     dependencies: `${githubRepo}/${dependenciesPath}`,
+    dependenciesTime: `${githubRepo}/${dependenciesTimePath}`,
   },
 };

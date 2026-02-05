@@ -1,20 +1,20 @@
 import { Row, Typography } from 'antd';
 import SourceCode from '../../components/SourceCode';
 import { URLS } from '../../constants';
-import ClassBased from './class-based';
+import TimeBased from './time-based';
 
-function Dependencies() {
+function DependenciesTime() {
   return (
     <>
       <Row align="middle" justify="center">
         <Typography.Title level={2} className="m-0">
-          Dependencies Example
+          Time-labelled Dependencies (Day View)
         </Typography.Title>
       </Row>
-      <SourceCode value={URLS.examples.dependencies} />
-      <ClassBased />
+      <SourceCode value={URLS.examples.dependenciesTime} />
+      <TimeBased />
     </>
   );
 }
 
-export default Dependencies;
+export default DependenciesTime;
