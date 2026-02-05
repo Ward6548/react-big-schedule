@@ -98,8 +98,30 @@ function DependencyOverlay({ dependencies }) {
       const right = rect.right - overlayRect.left;
       const top = rect.top - overlayRect.top;
       const bottom = rect.bottom - overlayRect.top;
+      const centerY = (top + bottom) / 2;
 
-      eventMap.set(id, { left, right, top, bottom });
+      // Events can render as multiple DOM fragments (e.g. multi-day events).
+      // Track the leftmost and rightmost fragments so "start" and "finish" anchors
+      // are stable regardless of DOM order.
+      const prev = eventMap.get(id);
+      if (!prev) {
+        eventMap.set(id, {
+          minLeft: left,
+          minLeftY: centerY,
+          maxRight: right,
+          maxRightY: centerY,
+        });
+        return;
+      }
+
+      if (left < prev.minLeft) {
+        prev.minLeft = left;
+        prev.minLeftY = centerY;
+      }
+      if (right > prev.maxRight) {
+        prev.maxRight = right;
+        prev.maxRightY = centerY;
+      }
     });
 
     const newSegments = [];
@@ -114,10 +136,10 @@ function DependencyOverlay({ dependencies }) {
 
       // Always draw from the finish (right edge) of the `from` event
       // to the start (left edge) of the `to` event.
-      const startX = from.right;
-      const startY = (from.top + from.bottom) / 2;
-      const endX = to.left;
-      const endY = (to.top + to.bottom) / 2;
+      const startX = from.maxRight;
+      const startY = from.maxRightY;
+      const endX = to.minLeft;
+      const endY = to.minLeftY;
 
       // Route the connector below both events to reduce overlap with content
       const verticalOffset = 12;
